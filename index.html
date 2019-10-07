@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rcsolver</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+
+<div class="g-recaptcha" data-sitekey="%site_key%" data-callback="onSubmit"></div>
+
+<script>
+    function onSubmit(val) {
+        fetch('/result?g-recaptcha-response=' + val)
+    }
+</script>
+
+</body>
+</html>
