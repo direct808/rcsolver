@@ -2,6 +2,7 @@ import rcsolver from "../src/rcsolver";
 // import * as puppeteer from "puppeteer";
 import * as hp from "http-proxy";
 import * as delay from "delay";
+import * as childProcess from "child_process";
 
 let portProxy = 8501;
 
@@ -50,7 +51,7 @@ describe("test", function () {
         puppeteer.use(pluginStealth());
         puppeteer.use(
             RecaptchaPlugin({
-                provider: { id: '2captcha', token: 'XXXXXXX' },
+                provider: {id: '2captcha', token: 'XXXXXXX'},
                 visualFeedback: true // colorize reCAPTCHAs (violet = detected, green = solved)
             })
         );
@@ -68,4 +69,18 @@ describe("test", function () {
     });
 
 
+    it('native_chrome', async () => {
+        let path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+
+        childProcess.spawn(path, [
+            "--profile-directory=a123sd111as1d",
+            '--incognito',
+            `--proxy-server=127.0.0.1:` + portProxy,
+            // '--proxy-bypass-list=www.google.com,www.gstatic.com,fonts.gstatic.com',
+            "http://sharesome.com",
+        ]);
+    });
+
+
 });
+
